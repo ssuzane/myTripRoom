@@ -23,6 +23,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,6 +36,13 @@ import br.senai.sp.jandira.triproom.ui.theme.TripRoomTheme
 
 @Composable
 fun PageLogin() {
+
+    var emailState = remember {
+        mutableStateOf("")
+    }
+    var senhaState = remember {
+        mutableStateOf("")
+    }
     TripRoomTheme {
         Column (
             modifier = Modifier
@@ -48,7 +57,7 @@ fun PageLogin() {
             ){
                 Box(modifier = Modifier
                     .width(120.dp)
-                    .height(25.dp)
+                    .height(35.dp)
                     .background(
                         color = Color(0xFFCF06F0),
                         shape = RoundedCornerShape(
@@ -81,8 +90,8 @@ fun PageLogin() {
                     .height(200.dp)
             ){
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = emailState.value,
+                    onValueChange = {emailState.value = it},
                     label = {
                         Text(text = "E-mail")
                     },
@@ -103,8 +112,8 @@ fun PageLogin() {
                 )
 
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
+                    value = senhaState.value,
+                    onValueChange = {senhaState.value = it},
                     label = {
                         Text(text = "Password")
                     },
@@ -141,13 +150,13 @@ fun PageLogin() {
                     Row (
                         modifier = Modifier
                             .width(134.dp)
-                            .height(48.dp)
+                            .height(35.dp)
                         ,
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceAround
                     ){
                         Text(text = "Sing in",
-                            fontSize = 26.sp)
+                            fontSize = 20.sp)
                         Icon(imageVector = Icons.Default.ArrowForward,
                             contentDescription = "",
                             tint = Color(0xFFFFFFFF),
@@ -175,14 +184,16 @@ fun PageLogin() {
             ){
                 Box(modifier = Modifier
                     .width(120.dp)
-                    .height(25.dp)
+                    .height(35.dp)
                     .background(
                         color = Color(0xFFCF06F0),
                         shape = RoundedCornerShape(
                             topEnd = 16.dp
                         )
                     )
-                ){}
+                ){
+
+                }
             }
         }
     }
