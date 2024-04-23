@@ -121,7 +121,7 @@ fun pageSignUp() {
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Person,
-                            contentDescription = "Cadeado",
+                            contentDescription = "",
                             tint = Color(0xffCF06F0),
                         )
                     },
@@ -239,7 +239,7 @@ fun pageSignUp() {
 
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(80.dp),
+                    .height(50.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {

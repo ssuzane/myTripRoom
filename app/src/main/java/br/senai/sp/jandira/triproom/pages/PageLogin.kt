@@ -97,7 +97,7 @@ fun PageLogin() {
                     },
                     leadingIcon = {
                         Icon(imageVector = Icons.Default.Lock,
-                            contentDescription = "oi",
+                            contentDescription = "",
                             tint = Color(0xffCF06F0),
                         )
                     },
@@ -138,13 +138,13 @@ fun PageLogin() {
             Column (
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(170.dp)
+                    .height(125.dp)
                     .padding(28.dp),
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.End
             ){
                 Button(onClick = { /*TODO*/ },
-                    shape = RoundedCornerShape(16.dp),
+                    shape = RoundedCornerShape(20.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color((0xffCF06F0)))
                 ) {
                     Row (
