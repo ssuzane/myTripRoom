@@ -196,8 +196,7 @@ fun pageSignUp() {
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Lock,
-                            contentDescription = "Email",
-                            tint = Color(0xffCF06F0),
+                            contentDescription = "Email"
                         )
                     },
                     colors = OutlinedTextFieldDefaults
