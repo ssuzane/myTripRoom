@@ -2,7 +2,9 @@ package br.senai.sp.jandira.triproom.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,13 +12,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,7 +39,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import br.senai.sp.jandira.triproom.R
+import br.senai.sp.jandira.triproom.model.categorias
+import br.senai.sp.jandira.triproom.model.viagem
 import br.senai.sp.jandira.triproom.repository.categoriasrepository
 import br.senai.sp.jandira.triproom.repository.viagemrepository
 import br.senai.sp.jandira.triproom.ui.theme.TripRoomTheme
@@ -48,114 +58,204 @@ import br.senai.sp.jandira.triproom.ui.theme.TripRoomTheme
         mutableStateOf("")
     }
 
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color(0xffF6F6F6)),
-    ) {
-
+    TripRoomTheme {
         Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(220.dp)
+            modifier = Modifier.fillMaxSize(),
+            color = Color(0xFFFFFFFF)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.fundo),
-                contentDescription = "",
-                contentScale = ContentScale.Crop
-
-            )
-
 
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(12.dp)
+                    .fillMaxSize()
+                    .background(Color(0xFFF6F6F6))
             ) {
-                Column(
+
+                Card(
+                    shape = RoundedCornerShape(0),
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(130.dp),
-                    horizontalAlignment = Alignment.End
+                        .height(200.dp)
                 ) {
-                    Surface(
-                        modifier = Modifier
-                            .width(60.dp)
-                            .height(60.dp),
-                        shape = RoundedCornerShape(50.dp)
-
-                    )
-                    {
+                    Box(modifier = Modifier.align(Alignment.End)) {
                         Image(
-                            painter = painterResource(id = R.drawable.iconperfil),
-                            contentDescription = ""
-                        )
-
-                    }
-                    Text(
-                        text = "Susu",
-                        color = Color.White,
-                    )
-                }
-
-                Column(
-                    modifier = Modifier
-                ) {
-                    Row {
-                        Icon(
-                            imageVector = Icons.Default.Place,
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            painter = painterResource(id = R.drawable.icon),
                             contentDescription = "",
-                            tint = Color.White
+                            contentScale = ContentScale.FillWidth
                         )
-                        Text(
-                            text = "You're in Paris",
-                            color = Color.White,
-                            fontSize = 14.sp,
-                        )
+                        Column(
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            Row(modifier = Modifier.align(Alignment.End)) {
+                                Column(
+                                    horizontalAlignment = Alignment.End,
+                                    modifier = Modifier.padding(16.dp)
+                                ) {
+                                    Image(painter = painterResource(id = R.drawable.ellipse),
+                                        contentDescription = "",
+                                        Modifier
+                                            .height(80.dp)
+                                            .width(80.dp)
+                                            .clickable {
+                                                navigationController!!.navigate("Pagelogin")
+                                            }
+                                    )
+                                    Text(text = "Susanna Hoffs", color = Color.White)
+                                }
+                            }
+                            Column(verticalArrangement = Arrangement.Bottom) {
+                                Row {
+                                    Icon(
+                                        imageVector = Icons.Default.Add,
+                                        contentDescription = "Ícone de localizacao",
+                                        tint = Color.White
+                                    )
+                                    Text(text = "You're in", color = Color.White)
+                                }
+                                Text(
+                                    text = "My Trips",
+                                    color = Color.White,
+                                    fontSize = 28.sp,
+                                    fontWeight = FontWeight.ExtraBold
+                                )
+                            }
+                        }
                     }
-                    Text(
-                        text = "My Trips",
-                        color = Color.White,
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
-        }
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-        ) {
-            Text(
-                text = "Categories",
-                color = Color(0xFF868181),
-                fontSize = 16.sp
-            )
-        }
-        LazyRow(
-            modifier = Modifier
-                .padding(start = 16.dp)
 
-        ) {
-            item(Categoria) {
-                Card(
-                    modifier = Modifier
-                        .width(102.dp)
-                        .height(64.dp)
-                        .padding(end = 8.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color(0xFFCF06F0)),
+                }
+                Column(
                 ) {
                     Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
 
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(16.dp), text = "Categories"
+                        )
+                        LazyRow(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 16.dp)
+                        ) {
+                            items(categorias.categorias) {
+                                Card(
+                                    modifier = Modifier
+                                        .height(74.dp)
+                                        .width(135.dp)
+                                        .padding(start = 20.dp)
+                                        .align(Alignment.CenterHorizontally)
+                                        .align(Alignment.End),
+                                    colors = CardDefaults.cardColors(Color(0xffCF06F0)),
+                                    shape = RoundedCornerShape(8.dp)
+                                ) {
+                                    Column(
+                                        modifier = Modifier.fillMaxSize(),
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                    }
+
+                                }
+                            }
+                        }
+                        Card(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
+                            OutlinedTextField(
+                                value = "",
+                                onValueChange = {},
+                                modifier = Modifier
+                                    .background(
+                                        Color(0xFFFFFFFF),
+                                        shape = RoundedCornerShape(16.dp)
+                                    )
+                                    .fillMaxWidth(),
+
+                                placeholder = {
+                                    Text(
+                                        text = "Search your destiny",
+                                        color = Color.Gray
+                                    )
+                                },
+                                trailingIcon = {
+                                    IconButton(onClick = { }) {
+                                        Icon(
+                                            imageVector = Icons.Default.Search,
+                                            contentDescription = "Botão Buscar",
+                                            tint = Color.Gray
+                                        )
+                                    }
+                                },
+
+                                shape = RoundedCornerShape(16.dp)
+                            )
+                        }
+
+
+                        Column(
+                            modifier = Modifier.padding(16.dp)
+                        ) {
+                            Text(
+                                text = "Past Trips", fontSize = 19.sp, color = Color(0xff565454),
+                                modifier = Modifier.padding(bottom = 16.dp)
+                            )
+                            LazyColumn {
+                                items(viagem) {
+                                    Card(Modifier.padding(bottom = 16.dp)) {
+                                        Column(
+                                            modifier = Modifier
+                                                .background(
+                                                    color = Color(0xffffffff),
+                                                    shape = RoundedCornerShape(16.dp)
+                                                )
+                                        ) {
+                                            Card(
+                                                modifier = Modifier
+                                                    .height(120.dp)
+                                                    .padding(6.dp)
+                                            ) {
+
+                                            }
+
+                                            Column(
+                                                modifier = Modifier.padding(
+                                                    start = 8.dp,
+                                                    end = 8.dp
+                                                )
+                                            ) {
+                                                Text(
+                                                    color = Color(0xffCF06F0),
+                                                    fontSize = 20.sp,
+                                                    text = "${it.destino}, ${it.datapartida.year}"
+                                                )
+                                                Text(
+                                                    color = Color(0xFFA09C9C),
+                                                    fontSize = 14.sp,
+                                                    lineHeight = 16.sp,
+                                                    text = it.descricao
+                                                )
+                                                Row(
+                                                    modifier = Modifier
+                                                        .align(Alignment.End)
+                                                        .padding(top = 16.dp, bottom = 16.dp)
+                                                ) {
+
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
     }
 }
-
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun PageHomepreview() {
+    TripRoomTheme {
+        PageHome(nav = rememberNavController())
+    }
+}

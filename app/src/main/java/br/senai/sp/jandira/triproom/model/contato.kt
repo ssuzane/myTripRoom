@@ -1,14 +1,17 @@
 package br.senai.sp.jandira.triproom.model
 
-@Entity(table)
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "tbl_contato")
 data class contato (
 
-    val Id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val Id: Int = 0,
     val Nome: String = "",
     val Telefone: String = "",
     val Email: String = "",
     val Senha: String = "",
-    val IdadeMaior: Boolean = false
+    @ColumnInfo(name = "is_over_18") val IdadeMaior: Boolean = false
 )
-
 
